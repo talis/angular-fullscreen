@@ -8,6 +8,8 @@
          // ensure ALLOW_KEYBOARD_INPUT is available and enabled
          var isKeyboardAvailbleOnFullScreen = (typeof Element !== 'undefined' && 'ALLOW_KEYBOARD_INPUT' in Element) && Element.ALLOW_KEYBOARD_INPUT;
 
+         var isSafari51 = / Version\/5\.1(?:\.\d+)? Safari\//.test(navigator.userAgent);
+
          var emitter = $rootScope.$new();
 
          // listen event on document instead of element to avoid firefox limitation
@@ -27,7 +29,14 @@
                } else if(element.mozRequestFullScreen) {
                   element.mozRequestFullScreen();
                } else if(element.webkitRequestFullscreen) {
-                  element.webkitRequestFullscreen();
+                  if (isSafari51) {
+                     // Safari 5.1 reports it supports keyboard input but doesn't work
+                     element.webkitRequestFullscreen();
+                  } else if (isKeyboardAvailbleOnFullScreen) {
+                     element.webkitRequestFullscreen(isKeyboardAvailbleOnFullScreen);
+                  } else {
+                     element.webkitRequestFullscreen();
+                  }
                } else if (element.msRequestFullscreen) {
                   element.msRequestFullscreen();
                }
