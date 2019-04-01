@@ -18,6 +18,17 @@
             emitter.$emit('FBFullscreen.change', serviceInstance.isEnabled());
          });
 
+         function enableWebkitFullScreen() {
+            if (isSafari51) {
+               // Safari 5.1 reports it supports keyboard input but doesn't work
+               element.webkitRequestFullscreen();
+            } else if (isKeyboardAvailbleOnFullScreen) {
+               element.webkitRequestFullscreen(isKeyboardAvailbleOnFullScreen);
+            } else {
+               element.webkitRequestFullscreen();
+            }
+         }
+
          var serviceInstance = {
             $on: angular.bind(emitter, emitter.$on),
             all: function() {
@@ -29,14 +40,7 @@
                } else if(element.mozRequestFullScreen) {
                   element.mozRequestFullScreen();
                } else if(element.webkitRequestFullscreen) {
-                  if (isSafari51) {
-                     // Safari 5.1 reports it supports keyboard input but doesn't work
-                     element.webkitRequestFullscreen();
-                  } else if (isKeyboardAvailbleOnFullScreen) {
-                     element.webkitRequestFullscreen(isKeyboardAvailbleOnFullScreen);
-                  } else {
-                     element.webkitRequestFullscreen();
-                  }
+                  enableWebkitFullScreen();
                } else if (element.msRequestFullscreen) {
                   element.msRequestFullscreen();
                }
