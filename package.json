@@ -1,6 +1,6 @@
 {
   "name": "@kariudo/angular-fullscreen",
-  "version": "1.0.2",
+  "version": "1.0.2-talis.1",
   "description": "An AngularJS service and a directive to quickly use the HTML5 fullscreen API",
   "main": "src/angular-fullscreen.js",
   "files": [
