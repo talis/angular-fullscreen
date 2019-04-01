@@ -18,7 +18,7 @@
             emitter.$emit('FBFullscreen.change', serviceInstance.isEnabled());
          });
 
-         function enableWebkitFullScreen() {
+         function enableWebkitFullScreen(element) {
             if (isSafari51) {
                // Safari 5.1 reports it supports keyboard input but doesn't work
                element.webkitRequestFullscreen();
@@ -40,7 +40,7 @@
                } else if(element.mozRequestFullScreen) {
                   element.mozRequestFullScreen();
                } else if(element.webkitRequestFullscreen) {
-                  enableWebkitFullScreen();
+                  enableWebkitFullScreen(element);
                } else if (element.msRequestFullscreen) {
                   element.msRequestFullscreen();
                }
